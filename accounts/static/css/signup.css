@@ -1,0 +1,121 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8e8e6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+.container {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    width: 350px;
+    text-align: center;
+}
+
+/* Input Group */
+.input-group {
+    text-align: left;
+    margin: 2px 0;
+}
+
+.input-group input {
+    width: 85%;
+    padding: 7px;
+    padding-left: 40px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.user {
+    position: relative;
+    bottom: 25px;
+    left: 15px;
+    color: grey;
+}
+
+.eye-icon {
+    cursor: pointer;
+    font-size: 16px;
+    position: relative;
+    float: right;
+    bottom: 15px;
+    right: 10px;
+    color: darkgray;
+    transform: translateY(-50%);
+}
+/* Login Button */
+.signup-btn {
+    width: 100%;
+    background: linear-gradient(to right, #148f3b, #0fdc34);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Divider */
+.divider {
+    margin: 20px 0;
+    font-size: 14px;
+    color: gray;
+    position: relative;
+}
+
+.divider::before,
+.divider::after {
+    content: "";
+    position: absolute;
+    width: 40%;
+    height: 1px;
+    background: gray;
+    top: 50%;
+}
+
+.divider::before {
+    left: 0;
+}
+
+.divider::after {
+    right: 0;
+}
+/* Social Login Buttons */
+.social-login button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    height: 40px;
+    margin-top: 10px;
+    font-size: 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    border: 1px solid #bbbbbb;
+    background: white;
+    font-weight: 500;
+}
+
+.google-btn {
+    position: relative;
+    bottom: 4px;
+}
+
+.facebook-btn {
+    position: relative;
+    bottom: 12px;
+}
+
+/* Signup Text */
+.signup-text {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.signup-text a {
+    color: #2575fc;
+    text-decoration: none;
+}

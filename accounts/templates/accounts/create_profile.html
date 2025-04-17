@@ -1,0 +1,119 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Profile Creation</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        <link rel="stylesheet" href="{% static 'css/create_profile.css' %}">
+
+    </head>
+<body>
+    <div class="container">
+        <h2>Create Your Profile</h2>
+        <div class="progress-bar"><div id="progress"></div></div>
+
+        {% if messages %}
+        {% for message in messages %}
+            <div class="alert-{{message.tags}}">{{ message }}</div>
+        {% endfor %}
+        {% endif %}
+        
+        <form method="post" id="profileForm" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="step active" id="step1">
+                <h3>Personal Information</h3>
+                <input type="text" name="first_name" placeholder="First Name">
+                <input type="text" name="last_name" placeholder="Last Name">
+            </div>
+            
+            <div class="step" id="step2">
+                <h3>Contact Information</h3>
+                <input type="text" name="mobile_number"  placeholder="Mobile Number">
+                <input type="date" name="date_of_birth" placeholder="Date of Birth">
+            </div>
+            
+            <div class="step" id="step3">
+                <h3>Bio & Profile Image</h3>
+                <textarea name="bio" placeholder="Write about yourself..."></textarea>
+                <input type="file" name="profile_image" id="profileImage" accept="image/*">
+                <div class="image-preview profile" id="imagePreview"></div>
+            </div>
+
+            <div class="step" id="step4">
+                <h3>Background Image</h3>
+                <input type="file" name="background_image" id="BGImage" accept="image/*">
+                <div class="image-preview" id="BGimagePreview"></div>
+            </div>
+            
+            <div class="btn-container">
+                <button type="button" id="prevBtn" onclick="prevStep()" disabled>Back</button>
+                <button type="button" id="nextBtn" onclick="nextStep()">Next</button>
+            </div>
+        </form>
+    </div>
+    
+    <script>
+        let currentStep = 1;
+        const totalSteps = 4;
+        const progress = document.getElementById("progress");
+        const nextBtn = document.getElementById("nextBtn");
+
+        
+        function showStep(step) {
+            document.querySelectorAll(".step").forEach((el, index) => {
+                el.classList.toggle("active", index === step - 1);
+            });
+            
+            document.getElementById("prevBtn").disabled = step === 1;
+            nextBtn.innerText = step === totalSteps ? "Submit" : "Next";
+            progress.style.width = `${(step / totalSteps) * 100}%`;
+
+        }
+        
+        function nextStep() {
+            if (currentStep < totalSteps) {
+                currentStep++;
+                showStep(currentStep);
+            } else {
+                nextBtn.setAttribute("type", "submit");
+            }
+        }
+        
+        function prevStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                showStep(currentStep);
+            }
+            if (currentStep < 4) {
+                nextBtn.type = "button";
+                nextBtn.setAttribute("onclick", "nextStep()");
+            }
+        }
+        
+        document.getElementById("profileImage").addEventListener("change", function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById("imagePreview").style.backgroundImage = `url(${e.target.result})`;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        document.getElementById("BGImage").addEventListener("change", function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById("BGimagePreview").style.backgroundImage = `url(${e.target.result})`;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+    </script>
+</body>
+</html>
